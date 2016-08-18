@@ -1,0 +1,7 @@
+[package]
+name = "alchemy"
+version = "0.1.0"
+authors = ["Lain <lain@lain.org.uk>"]
+
+[lib]
+crate-type = ["staticlib"]
