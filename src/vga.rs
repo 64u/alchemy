@@ -1,7 +1,7 @@
 #![allow(dead_code)]
 
-const HEIGHT: usize = 25;
-const WIDTH: usize = 80;
+pub const HEIGHT: usize = 25;
+pub const WIDTH: usize = 80;
 
 #[repr(u8)]
 pub enum Color {
@@ -83,12 +83,32 @@ impl Writer {
   fn new_line(&mut self) {
     self.x = 0;
     
-    if self.y < HEIGHT {
+    if self.y < (HEIGHT - 1) {
       self.y = self.y + 1;
     }
 
     else {
-      self.y = 0;
+      self.y = HEIGHT - 1;
+
+      {
+        let mut buffer = self.buffer();
+        
+        for row in 0..(HEIGHT - 1) {
+          buffer.chars[row] = buffer.chars[row + 1];
+        }
+      };
+
+      self.clear_line(HEIGHT - 1);
+    }
+  }
+
+  fn clear_line(&mut self, line: usize) {
+    self.buffer().chars[line] = [VGAChar { chr: b' ', color: self.color }; WIDTH];
+  }
+
+  fn clear_screen(&mut self) {
+    for i in 0..HEIGHT {
+      self.clear_line(i);
     }
   }
 

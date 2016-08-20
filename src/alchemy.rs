@@ -4,6 +4,7 @@
 
 extern crate rlibc;
 
+
 mod vga;
 use vga::*;
 
@@ -11,9 +12,17 @@ use core::fmt::Write;
 
 #[no_mangle]
 pub extern fn main(_argc: isize, _argv: *const *const u8) -> isize {
-  let mut writer = Writer::new(ColorPair::new(Color::White, Color::Black));
+  let mut writer = Writer::new(ColorPair::new(Color::White, Color::Black));  
 
-  write!(writer, "Hello world!").expect("file a bug maybe");
+  {
+    for i in 0..30 {
+      for _ in 0..81 {
+        write!(writer, "-").unwrap();
+      }
+      
+      write!(writer, "{}\n", i).unwrap();
+    }
+  }
   
   loop {}
 }
