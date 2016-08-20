@@ -1,6 +1,4 @@
 target
 *.o
 *.iso
-boot
-multiboot_header
 *.bin
