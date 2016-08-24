@@ -2,6 +2,7 @@
 name = "alchemy"
 version = "0.1.0"
 authors = ["Lain <lain@lain.org.uk>"]
+build = "build.rs"
 
 [lib]
 crate-type = ["staticlib"]

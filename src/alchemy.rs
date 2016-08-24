@@ -27,6 +27,8 @@ pub extern fn main(_argc: isize, _argv: *const *const u8) -> isize {
       write!(console, "{}\n", i).unwrap();
     }
   }
+
+  write!(writer, "read byte: {}\n", console.inb()).unwrap();
   
   loop {}
 }

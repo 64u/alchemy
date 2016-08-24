@@ -10,11 +10,11 @@ impl Serial {
   }
 
   pub fn outb(&self, byte: u8) {
-    outport_b(byte, self.port);
+    unsafe { outport_b(byte, self.port) };
   }
 
   pub fn inb(&self) -> u8 {
-    inport_b(self.port)
+    unsafe { inport_b(self.port) }
   }
 }
 
@@ -28,16 +28,10 @@ impl ::core::fmt::Write for Serial {
   }
 }
 
-fn outport_b(byte: u8, port: u16) {
-  unsafe {
-    asm!("outb %al, %dx" :: "{dx}" (port), "{al}" (byte) :: "volatile");
-  }
+extern {
+  fn outport_b(byte: u8, port: u16);
 }
 
-fn inport_b(port: u16) -> u8 {
-  let result: u8;
-  unsafe {
-    asm!("inb %dx, %al" : "={al}" (result) : "{dx}" (port) :: "volatile");
-  }
-  result
+extern {
+  fn inport_b(port: u16) -> u8;
 }
