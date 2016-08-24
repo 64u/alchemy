@@ -2,3 +2,4 @@ target
 *.o
 *.iso
 *.bin
+*.a
