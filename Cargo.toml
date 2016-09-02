@@ -10,6 +10,9 @@ crate-type = ["staticlib"]
 [dependencies]
 rlibc = "1.0.0"
 
+[dependencies.spin]
+version = "0.4.3"
+
 [profile.dev]
 panic = "abort"
 

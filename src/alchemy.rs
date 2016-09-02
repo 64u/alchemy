@@ -1,11 +1,12 @@
 #![feature(lang_items)]
-#![feature(asm)]
+#![feature(const_fn)]
 #![no_std]
 #![feature(start)]
 
 extern crate rlibc;
 
-mod kernel;
+#[macro_use] mod kernel;
+
 use kernel::vga::*;
 use kernel::port::Serial;
 
@@ -13,22 +14,23 @@ use core::fmt::Write;
 
 #[no_mangle]
 pub extern fn main(_argc: isize, _argv: *const *const u8) -> isize {
-  let mut writer = Writer::new(ColorPair::new(Color::White, Color::Black));  
   let mut console = Serial::new(0x3F8);
-  
+
+  // Simply a drawing test for both VGA and the serial port.
+  // Note that wrapping is handled correctly on VGA.
   {
     for i in 0..30 {
       for _ in 0..81 {
-        write!(writer, "-").unwrap();
+        print!("-");
         write!(console, "-").unwrap();
       }
-      
-      write!(writer, "{}\n", i).unwrap();
+
+      print!("{}\n", i);
       write!(console, "{}\n", i).unwrap();
     }
   }
-
-  write!(writer, "read byte: {}\n", console.inb()).unwrap();
+  
+  write!(VGA.lock(), "read byte: {}\n", console.inb()).unwrap();
   
   loop {}
 }

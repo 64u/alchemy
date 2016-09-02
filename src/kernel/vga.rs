@@ -1,5 +1,9 @@
 #![allow(dead_code)]
 
+extern crate spin;
+
+use core::sync::atomic::{AtomicPtr, Ordering};
+
 pub const HEIGHT: usize = 25;
 pub const WIDTH: usize = 80;
 
@@ -28,7 +32,7 @@ pub enum Color {
 pub struct ColorPair(u8);
 
 impl ColorPair {
-  pub fn new(fg: Color, bg: Color) -> ColorPair {
+  pub const fn new(fg: Color, bg: Color) -> ColorPair {
     ColorPair((bg as u8) << 4 | (fg as u8))
   }
 }
@@ -48,16 +52,16 @@ pub struct Writer {
   x: usize,
   y: usize,
   pub color: ColorPair,
-  buffer: *mut Buffer
+  buffer: AtomicPtr<Buffer>
 }
 
 impl Writer {
-  pub fn new(color: ColorPair) -> Writer {
+  pub const fn new(color: ColorPair) -> Writer {
     Writer {
       x: 0,
       y: 0,
       color: color,
-      buffer: 0xb8000 as *mut _
+      buffer: AtomicPtr::new(0xb8000 as *mut _)
     }
   }
   
@@ -113,7 +117,7 @@ impl Writer {
   }
 
   fn buffer(&mut self) -> &mut Buffer {
-    unsafe { self.buffer.as_mut().unwrap() }
+    unsafe { self.buffer.load(Ordering::Relaxed).as_mut().unwrap() }
   }
 }
 
@@ -125,4 +129,20 @@ impl ::core::fmt::Write for Writer {
 
     Ok(())
   }
+}
+
+pub static VGA: spin::Mutex<Writer> = spin::Mutex::new(
+  Writer::new(ColorPair::new(Color::White, Color::Black))
+);
+
+macro_rules! print {
+  ($($arg:tt)*) => {
+    use core::fmt::Write;
+    ($crate::kernel::vga::VGA.lock().write_fmt(format_args!($($arg)*)).unwrap());
+  }
+}
+
+macro_rules! println {
+  ($fmt:expr) => (print!(concat!($fmt, "\n")));
+  ($fmt:expr, $($arg:tt)*) => (print!(concat!($fmt, "\n"), $($arg)*));
 }

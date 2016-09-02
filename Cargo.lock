@@ -3,6 +3,7 @@ name = "alchemy"
 version = "0.1.0"
 dependencies = [
  "rlibc 1.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "spin 0.4.3 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -10,5 +11,11 @@ name = "rlibc"
 version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 
+[[package]]
+name = "spin"
+version = "0.4.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+
 [metadata]
 "checksum rlibc 1.0.0 (registry+https://github.com/rust-lang/crates.io-index)" = "fc874b127765f014d792f16763a81245ab80500e2ad921ed4ee9e82481ee08fe"
+"checksum spin 0.4.3 (registry+https://github.com/rust-lang/crates.io-index)" = "e64b1f9f6eb067165a890f257804d5f4e358b7b7811a4a7c34b0345f624c0f94"
