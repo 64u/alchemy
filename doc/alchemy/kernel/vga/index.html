@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `vga` mod in crate `alchemy`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, vga">
+
+    <title>alchemy::kernel::vga - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../../index.html'>alchemy</a>::<wbr><a href='../index.html'>kernel</a></p><script>window.sidebarCurrent = {name: 'vga', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Module <a href='../../index.html'>alchemy</a>::<wbr><a href='../index.html'>kernel</a>::<wbr><a class='mod' href=''>vga</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-6' class='srclink' href='../../../src/alchemy/src/kernel/vga.rs.html#1-178' title='goto source code'>[src]</a></span></h1>
+<div class='docblock'><p>This module contains submodules which correspond to various aspects
+of the kernel such as VGA driver, serial port access...
+This module contains a VGA driver which makes use of a <code>Mutex</code> provided
+by the <code>spin</code> crate (spinlock) and an <code>AtomicPtr</code> to enable access to
+an instance of the <code>Writer</code> structure statically.</p>
+</div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.ColorPair.html'
+                                  title='alchemy::kernel::vga::ColorPair'>ColorPair</a></td>
+                           <td class='docblock short'>
+                                <p>A pair of <code>Color</code>s which represents foreground/background.
+Note that both colors are packed into a single <code>u8</code> to save space.
+A <code>VGAChar</code> is 16-bit and thus the color forms the latter byte. </p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.VGAChar.html'
+                                  title='alchemy::kernel::vga::VGAChar'>VGAChar</a></td>
+                           <td class='docblock short'>
+                                <p>This structure represents a single character on the VGA display and its
+formatting options (only foreground and background color at present).
+Each character is two bytes, with the first byte containing the ASCII
+character code and the latter byte containing the formatting options.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.Writer.html'
+                                  title='alchemy::kernel::vga::Writer'>Writer</a></td>
+                           <td class='docblock short'>
+                                <p><code>Writer</code> is a representation of VGA state, it contains positioning
+information for the current row and column, as well as formatting options
+and an <code>AtomicPtr</code> to a <code>Buffer</code>.</p>
+                           </td>
+                       </tr></table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class='enum' href='enum.Color.html'
+                                  title='alchemy::kernel::vga::Color'>Color</a></td>
+                           <td class='docblock short'>
+                                <p>Enumerative type which is used for foreground and backgroun
+colors alike.</p>
+                           </td>
+                       </tr></table><h2 id='constants' class='section-header'><a href="#constants">Constants</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.HEIGHT.html'
+                                  title='alchemy::kernel::vga::HEIGHT'>HEIGHT</a></td>
+                           <td class='docblock short'>
+                                <p>Height of the VGA output in characters.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.WIDTH.html'
+                                  title='alchemy::kernel::vga::WIDTH'>WIDTH</a></td>
+                           <td class='docblock short'>
+                                <p>Width of the VGA output in characters.</p>
+                           </td>
+                       </tr></table><h2 id='statics' class='section-header'><a href="#statics">Statics</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class='static' href='static.VGA.html'
+                                  title='alchemy::kernel::vga::VGA'>VGA</a></td>
+                           <td class='docblock short'>
+                                <p>A static VGA which makes use of <code>spin::Mutex</code> to provide locking.
+It is this static structure which makes <code>println!</code> et al. possible.</p>
+                           </td>
+                       </tr></table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../../";
+        window.currentCrate = "alchemy";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../jquery.js"></script>
+    <script src="../../../main.js"></script>
+    
+    <script defer src="../../../search-index.js"></script>
+</body>
+</html>

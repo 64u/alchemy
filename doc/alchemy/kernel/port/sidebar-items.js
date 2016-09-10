@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Serial","Primary structure for communicating with serial ports."]]});

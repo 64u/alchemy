@@ -16,3 +16,6 @@ x86_64:
 
 iso:
 	grub-mkrescue -o alchemy.iso isofiles
+
+doc:
+	cargo doc
