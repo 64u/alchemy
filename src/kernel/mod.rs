@@ -1,5 +1,5 @@
-/// This module contains submodules which correspond to various aspects
-/// of the kernel such as VGA driver, serial port access...
+//! This module contains submodules which correspond to various aspects
+//! of the kernel such as VGA driver, serial port access...
 #[macro_use]
 
 /// This module contains a VGA driver which makes use of a `Mutex` provided

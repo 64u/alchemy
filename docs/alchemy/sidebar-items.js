@@ -1,1 +1,1 @@
-initSidebarItems({"fn":[["_Unwind_Resume",""],["main",""]],"mod":[["kernel",""]]});
+initSidebarItems({"fn":[["_Unwind_Resume",""],["main",""]],"mod":[["kernel","This module contains submodules which correspond to various aspects of the kernel such as VGA driver, serial port access..."]]});
