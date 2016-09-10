@@ -5,7 +5,9 @@
 
 extern crate rlibc;
 
-#[macro_use] mod kernel;
+// Okay we have to do this to get the documentation for this module
+// to be included. Should be fine.
+#[macro_use] pub mod kernel;
 
 use kernel::vga::*;
 use kernel::port::Serial;
