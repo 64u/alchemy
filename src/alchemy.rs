@@ -37,8 +37,8 @@ pub extern fn main(_argc: isize, _argv: *const *const u8) -> isize {
   loop {}
 }
 
-#[lang = "eh_personality"] extern fn eh_personality() {}
-#[lang = "panic_fmt"] extern fn panic_fmt() -> ! { loop {} }
+#[lang = "eh_personality"] pub extern fn eh_personality() {}
+#[no_mangle] #[lang = "panic_fmt"] pub extern fn panic_fmt() -> ! { loop {} }
 
 #[allow(non_snake_case)]
 #[no_mangle]
