@@ -9,31 +9,20 @@ extern crate rlibc;
 // to be included. Should be fine.
 #[macro_use] pub mod kernel;
 
-use kernel::vga::*;
+use kernel::vga::VGA;
 use kernel::port::Serial;
-
-use core::fmt::Write;
+use kernel::memory::*;
 
 #[no_mangle]
 pub extern fn main(_argc: isize, _argv: *const *const u8) -> isize {
   let mut console = Serial::new(0x3F8);
+  let mut memory = Manager::new();
+  let mut block = memory.page();
 
-  // Simply a drawing test for both VGA and the serial port.
-  // Note that wrapping is handled correctly on VGA.
-  {
-    for i in 0..30 {
-      for _ in 0..81 {
-        print!("-");
-        write!(console, "-").unwrap();
-      }
+  VGA.lock().clear_screen();
 
-      print!("{}\n", i);
-      write!(console, "{}\n", i).unwrap();
-    }
-  }
-  
-  write!(VGA.lock(), "read byte: {}\n", console.inb()).unwrap();
-  
+  println!("Block address: {:?}", block);
+
   loop {}
 }
 

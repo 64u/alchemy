@@ -11,3 +11,6 @@ pub mod vga;
 /// which are written in native assembly, contained in 
 /// platforms/(arch)/port.s
 pub mod port;
+
+/// This module contains the kernel's memory manager.
+pub mod memory;

@@ -136,7 +136,7 @@ impl Writer {
   }
 
   // Clears each line on the screen, iteratively.
-  fn clear_screen(&mut self) {
+  pub fn clear_screen(&mut self) {
     for i in 0..HEIGHT {
       self.clear_line(i);
     }
