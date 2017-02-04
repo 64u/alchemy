@@ -166,10 +166,10 @@ pub static VGA: spin::Mutex<Writer> = spin::Mutex::new(
 );
 
 macro_rules! print {
-  ($($arg:tt)*) => {
+  ($($arg:tt)*) => {{
     use core::fmt::Write;
     ($crate::kernel::vga::VGA.lock().write_fmt(format_args!($($arg)*)).unwrap());
-  }
+  }}
 }
 
 macro_rules! println {

@@ -17,11 +17,15 @@ use kernel::memory::*;
 pub extern fn main(_argc: isize, _argv: *const *const u8) -> isize {
   let mut console = Serial::new(0x3F8);
   let mut memory = Manager::new();
-  let mut block = memory.page();
+  let mut block = memory.page().expect("Failed to allocate!");
 
   VGA.lock().clear_screen();
 
-  println!("Block address: {:?}", block);
+  println!("Block {:p} status: {:?}", block, memory.probe(block));
+
+  memory.free(block);
+
+  println!("Block {:p} status: {:?}", block, memory.probe(block));
 
   loop {}
 }
